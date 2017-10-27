@@ -22,7 +22,7 @@
                         <div  style="height:0.15rem" v-if="commentUpper"></div>
                      <span v-html="badComments_str"></span><span v-if="commentDown">有待提高，要重视培养喽~~</span>
                          <div style="height:0.15rem;" v-if="commentDown"> </div>
-                      点击下方“分享战绩”，邀请小伙伴一起参加测评吧~
+                         点击右上角，进行分享，邀请小伙伴一起参加测评吧~
                    </div>
 
                      <RadarGraphic   :point_Array="point_arry"/>
@@ -57,7 +57,6 @@
                    <div >{{item.lesson}}</div>
                    <div >{{item.respons}}</div>
                  </div>
-
                </div>
 
               <div class='button2'></div>

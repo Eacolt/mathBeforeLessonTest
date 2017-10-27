@@ -31,23 +31,31 @@ const currentLevelRank = (state) => {
   let answers = state.userAnswers[state.currentLevel];
   let getedScore = 0;
   let rate;
+  //求得分的总数：gettedScore;
   answers.forEach(value => {
     getedScore += value.score;
   })
+  //@rate:当前得分除以总分（每道题得分与总问题数量的积），所求得的分数百分比
   rate = getedScore / (state.totalQuestion * state.scoreEveryQuestion);
-  if (rate < 0.1) {
+  if (rate>=0 && rate <= 0.1) {
     return {rank: "D", rate}
   }
-  if (rate < 0.7) {
+  if (rate>0.1 && rate <= 0.7) {
     return {rank: "C", rate}
   }
-  if (rate < 0.85) {
+  if (rate>0.7 && rate <= 0.85) {
     return {rank: "B", rate}
   }
-  if (rate < 0.9) {
+  if (rate>0.85 && rate <= 0.9) {
     return {rank: 'A', rate}
   }
-  return {rank: 'A+', rate};
+  if(rate>0.9){
+      return {rank: 'A+', rate};
+  }
+  // if(rate){
+  //
+  // }
+
 }
 /**
  * 检测当前回答是否正确
@@ -76,13 +84,13 @@ const getRate = (passedTime, answerTime) => {
   if (passedTime < 35) {
     return 1;
   }
-  if (passedTime < 60) {
+  if (passedTime < 60 && passedTime>=35) {
     return 0.9
   }
-  if (passedTime < 120) {
+  if (passedTime < 120 && passedTime>=60) {
     return 0.7
   }
-  if (passedTime === answerTime) {
+  if (passedTime >= answerTime) {
     return 0.5;
   }
 }
@@ -94,6 +102,8 @@ export const submitUserAnswer = (state, {userAnswer, passedTime}) => {
   let score = 0;
 
   if (check(state, userAnswer)) {
+
+    //分数
     score = state.scoreEveryQuestion * getRate(passedTime, state.answerTime);
   }
   if (!userAnswers[level]) {

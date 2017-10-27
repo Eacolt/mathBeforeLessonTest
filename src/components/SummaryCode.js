@@ -134,7 +134,7 @@ export default {
       }
     },
     components:{swiper,swiperSlide,PercentBar,RadarGraphic,Arrows,Buttons},
-    mounted(){
+    mounted:function(){
       let _badComments_arr=[];
       let _greatComments_arr=[]
       let comments = ['运算能力','专注力','推理能力','观察能力','动手能力','时间管理'];
@@ -146,8 +146,8 @@ export default {
         let _rank = this.getLevel[i].rank;
         let _rate = Number(this.getLevel[i].rate).toFixed(2)*100;
         rankarr.push({
-          currentNum:(_rate==0) ? 10 :_rate,
-          score:_rank,
+          currentNum:(_rate==0) ? 10 :_rate,//这个是判断雷达图直径长度的
+          score:_rank,//这个是ABCD评分
           color:color_arr[i]
         });
         if(_rate<85){
