@@ -33,6 +33,10 @@ export default {
     })
   },
   methods: {
+    backToMap(){
+      this.$router.push('./gameMap');
+      createjs.Sound.play("button_mp3");
+    },
     getLabelImgPath(index) {
       if (this.isSelected(index)) {
         return this.path + 'selected_' + index + '.png';
@@ -58,6 +62,7 @@ export default {
       this.$store.dispatch('submit', {userAnswer: [this.userAnswer], passedTime: this.passedTime})
       if (this.currentLevelLastQuestion) {
         this.passedLevel = true;
+        createjs.Sound.play("success_mp3");
       } else {
         this.toNext();
       }
@@ -67,6 +72,8 @@ export default {
       this.passedTime = 0;
       this.userAnswer = null;
        this.$store.dispatch('toNext');
+       createjs.Sound.play("button_mp3");
+
     //  this.$router.push('./gameMap')
     },
     enter(el,done) {

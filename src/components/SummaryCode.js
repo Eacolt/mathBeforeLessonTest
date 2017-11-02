@@ -14,7 +14,16 @@ export default {
            pagination: '.swiper-pagination',
            resistanceRatio:0,
            direction:'vertical',
-           mousewheelControl:true
+           mousewheelControl:true,
+           onTransitionEnd:function(){
+             console.log(this.mySwiper.activeIndex)
+             if(this.mySwiper.activeIndex==1){
+                  this.$refs.RadarGraphic.animeStart(this.radarPointArr)
+                  console.log()
+
+             }
+
+           }.bind(this)
         },
         username:'小恐龙',
         score:'100',
@@ -24,7 +33,7 @@ export default {
         commentDown:true,
         //这个是雷达图
         point_arry:[
-            [0,1],[0,1],[0,1],[0,1],[0,1],[0,1]
+            [0.3,1],[0.3,1],[0.3,1],[0.2,1],[0.5,1],[0.8,1]
         ],
         leftUlList:[
           {
@@ -131,10 +140,33 @@ export default {
       }),
       toto:function(){
         return 666;
+      },
+      mySwiper(){
+        return  this.$refs.mySwiper.swiper
+      },
+      currentPage:{
+        get(){
+          return this.mySwiper.activeIndex
+        }
+      },
+      radarPointArr:{
+        get(){
+          return this.point_arry
+        },
+        set(x){
+          return x;
+
+        }
       }
+
     },
     components:{swiper,swiperSlide,PercentBar,RadarGraphic,Arrows,Buttons},
     mounted:function(){
+
+
+
+
+      /////////
       let _badComments_arr=[];
       let _greatComments_arr=[]
       let comments = ['运算能力','专注力','推理能力','观察能力','动手能力','时间管理'];
@@ -155,7 +187,7 @@ export default {
         }else{
           _greatComments_arr.push('<span style="color:'+color_arr[i]+'">'+comments[i]+'</span>');
         }
-        radararr.push([rankarr[i].currentNum,100]);
+        radararr.push([rankarr[i].currentNum/100,1]);
       }
       if(_badComments_arr.length<1){
         self.commentDown = false;
@@ -166,7 +198,11 @@ export default {
       self.badComments_str = _badComments_arr.join('，');
       self.greatComments_str =_greatComments_arr.join('，');
       self.percentbarList = rankarr;
-      self.point_arry=[radararr[3],radararr[2],radararr[1],radararr[0],radararr[5],radararr[4]];
+      let newarr =[radararr[3],radararr[2],radararr[1],radararr[0],radararr[5],radararr[4]];
+        // self.$refs.RadarGraphic.animeStart(newarr)
+        self.point_arry = newarr;
+      // self.radarPointArr = newarr;
+        console.log(newarr)
       //获得分数;
       let score = self.$store.state.userAnswers;
       let summaryscore = [];

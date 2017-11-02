@@ -1,8 +1,27 @@
-(function (doc, win) {
-    var docEl = doc.documentElement,
+class Preload{
+   constructor(){
+     this.fontSize = 0;
+     this.loadingDiv = null;
+   }
+    getKeyFrame(rule){
+        var ss = document.styleSheets;
+        for(var i=0;i<ss.length;++i){
+            for(var j=0;j<ss[i].cssRules.length;++j){
+                if(ss[i].cssRules[j].type==window.CSSRule.KEYFRAMES_RULE &&
+                ss[i].cssRules[j].name == rule){
+                    return ss[i].cssRules[j];
+                }
+            }
+            return null;
+        }
+    }
+    //适配方法
+    initAdaption(){
+        var self = this;
+        var docEl = document.documentElement,
         resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-        recalc = function () {
-            window.clientWidth = docEl.clientWidth;
+           recalc = function () {
+                  window.clientWidth = docEl.clientWidth;
             window.clientHeight = docEl.clientHeight;
             if (!window.clientWidth) return;
             var aspectRatio = window.clientWidth/window.clientHeight;
@@ -14,46 +33,29 @@
                 window.base = 100 * (window.clientWidth / 1920);
                 // 判断是否为移动设备，提示旋转屏幕
             }
-            // alert(navigator.userAgent)
-            var isMobile = {
-                Android: function () {
-                    return navigator.userAgent.match(/Android/i) ? true : false;
-                },
-                BlackBerry: function () {
-                    return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-                },
-                iOS: function () {
-                    return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-                },
-                Windows: function () {
-                    return navigator.userAgent.match(/IEMobile/i) ? true : false;
-                },
-                any: function () {
-                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-                }
-            };
-        };
-    try {
-        recalc();
-    } catch (e) {
+           var kfy = self.getKeyFrame('loader');
 
-    }
-    if (!doc.addEventListener) return;
-    win.addEventListener(resizeEvt, recalc, false);
-    doc.addEventListener('DOMContentLoaded', recalc, false);
 
-    //
-    document.onreadystatechange = function () {//文档加载完毕
-        if( document.readyState ==="complete" ) {
-
-            var loading = document.getElementsByClassName('page-loading')[0];
-            // loading.style.visibility = 'hidden';
-
-            //to php
-            var data = {type: 'onload'};
-            window.parent.postMessage(data, '*');
+        if( parseInt(document.documentElement.style.fontSize)<25){
+             self.fontSize = 40;
+        }else if(parseInt(document.documentElement.style.fontSize)>48){
+             self.fontSize = 40;
+        }else{
+            self.fontSize = parseInt(document.documentElement.style.fontSize);
         }
+        // let allfontsize = document.documentElement.style.fontSize;
+        //  let transMin =  self.fontSize*-0.3+"rem";
+        //  let transMax =  self.fontSize*0.3+"rem";
+        //  let myrule = "0% {-webkit-transform:translate("+transMin+")}";
+        //  let myrule2 = "100% {-webkit-transform:translate("+transMax+")}";
+        //  kfy.deleteRule('0%');
+        //  kfy.deleteRule('100%');
+        //  kfy.appendRule(myrule);
+        //  kfy.appendRule(myrule2);
+
+        };
+        window.addEventListener(resizeEvt, recalc, false);
+        recalc()
     }
-
-
-})(document, window);
+}
+export default Preload;

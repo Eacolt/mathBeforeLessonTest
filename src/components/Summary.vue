@@ -24,8 +24,7 @@
                          <div style="height:0.15rem;" v-if="commentDown"> </div>
                          点击右上角，进行分享，邀请小伙伴一起参加测评吧~
                    </div>
-
-                     <RadarGraphic   :point_Array="point_arry"/>
+                     <RadarGraphic  ref="RadarGraphic"  :point_Array="point_arry"/>
              </swiper-slide>
              <swiper-slide class="scene3">
                   <img draggable="false" style="position:absolute;left:0;top:0;width:100%;height:auto;" src="static/summary_bg3.jpg"/>

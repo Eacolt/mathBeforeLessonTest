@@ -14,10 +14,12 @@
         <img draggable="false"  class="cartoon6" src="static/begin/cartoon6.png" />
         <img draggable="false" class="cartoon7"  src="static/begin/cartoon7.png" />
       </swiper-slide>
-      <img @click="$router.push('/gamemap')" draggable="false" class="btnstart" src="static/begin/startbtn.png" />
+      <img @click="gotoGame()" draggable="false" class="btnstart" src="static/begin/startbtn.png" />
     </swiper>
 
-
+    <div id="loadingDiv">
+        <div class="loader-container"><span class="runner"></span></div><span class="loadingText"></span>
+    </div>
   </div>
 </template>
 <script>

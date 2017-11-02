@@ -1,7 +1,7 @@
 <template>
   <div v-if="currentLevel>=0" class="container">
     <!--背景-->
-    <img draggable="false" class="full" src="../assets/questionBg.jpg">
+    <img draggable="false" class="full" src="static/img/questionBg.jpg">
     <img draggable="false" class="avatar" :src="avatarLogo"/>
     <!--题目-->
     <div class="describe"
@@ -52,12 +52,12 @@
     <div v-show="passedLevel" class="passed full">
       <div class="modal"></div>
       <div class="center">
-        <img draggable="false" class="avatarLight" src="../assets/passlight.png"/>
+        <img draggable="false" class="avatarLight" src="static/img/passlight.png"/>
         <img draggable="false"  class="avatarPassLevel"  :src="passLevelBg"/>
         <!-- <img draggable="false" class="avatarPassLevel" :src="avatarLogo"/> -->
         <p class="rank">{{currentLevelName}}:{{rank ? rank.rank : ''}}</p>
         <p class="levelDescribe">{{complete ? lastLevelDescribe : nextLevelDescribe}}</p>
-        <button v-show="!complete" @click="$router.push('./gameMap')"></button>
+        <button v-show="!complete" @click="backToMap()"></button>
         <button  v-show="complete"></button>
         <img draggable="false" v-show="complete" @click="$router.push('./summary')"  class="getsummaryBtn" src="../assets/getsumbtn.png"/>
       </div>

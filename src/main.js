@@ -4,20 +4,23 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import store from './store';
-
+import Preload from './preload';
 import 'babel-polyfill'
-
 const VueAwesomeSwiper = require('vue-awesome-swiper');
-require('./preload');
-
 Vue.config.productionTip = false;
 Vue.use(VueAwesomeSwiper);
-
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
   router,
   template: '<App/>',
-  components: {App}
+  components: {
+    App
+  },
+  mounted() {
+    let preload = new Preload();
+    //初始化Preload
+    preload.initAdaption();
+
+  }
 })
