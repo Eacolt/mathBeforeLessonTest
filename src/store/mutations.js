@@ -34,23 +34,38 @@ const currentLevelRank = (state) => {
   //求得分的总数：gettedScore;
   answers.forEach(value => {
     getedScore += value.score;
-  })
+  });
   //@rate:当前得分除以总分（每道题得分与总问题数量的积），所求得的分数百分比
   rate = getedScore / (state.totalQuestion * state.scoreEveryQuestion);
-  if (rate>=0 && rate <= 0.1) {
-    return {rank: "D", rate}
+  if (rate >= 0 && rate <= 0.1) {
+    return {
+      rank: "D",
+      rate
+    }
   }
-  if (rate>0.1 && rate <= 0.7) {
-    return {rank: "C", rate}
+  if (rate > 0.1 && rate <= 0.7) {
+    return {
+      rank: "C",
+      rate
+    }
   }
-  if (rate>0.7 && rate <= 0.85) {
-    return {rank: "B", rate}
+  if (rate > 0.7 && rate <= 0.85) {
+    return {
+      rank: "B",
+      rate
+    }
   }
-  if (rate>0.85 && rate <= 0.9) {
-    return {rank: 'A', rate}
+  if (rate > 0.85 && rate <= 0.9) {
+    return {
+      rank: 'A',
+      rate
+    }
   }
-  if(rate>0.9){
-      return {rank: 'A+', rate};
+  if (rate > 0.9) {
+    return {
+      rank: 'A+',
+      rate
+    };
   }
   // if(rate){
   //
@@ -84,10 +99,10 @@ const getRate = (passedTime, answerTime) => {
   if (passedTime < 35) {
     return 1;
   }
-  if (passedTime < 60 && passedTime>=35) {
+  if (passedTime < 60 && passedTime >= 35) {
     return 0.9
   }
-  if (passedTime < 120 && passedTime>=60) {
+  if (passedTime < 120 && passedTime >= 60) {
     return 0.7
   }
   if (passedTime >= answerTime) {
@@ -95,7 +110,10 @@ const getRate = (passedTime, answerTime) => {
   }
 }
 
-export const submitUserAnswer = (state, {userAnswer, passedTime}) => {
+export const submitUserAnswer = (state, {
+  userAnswer,
+  passedTime
+}) => {
   let level = state.currentLevel;
   let question = state.currentQuestion;
   let userAnswers = state.userAnswers;
@@ -109,7 +127,10 @@ export const submitUserAnswer = (state, {userAnswer, passedTime}) => {
   if (!userAnswers[level]) {
     userAnswers[level] = [];
   }
-  userAnswers[level][question] = {score, userAnswer};
+  userAnswers[level][question] = {
+    score,
+    userAnswer
+  };
   state.userAnswers = state.userAnswers.concat();
 
   //通关，计算评级

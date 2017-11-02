@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import Hello from '@/components/Hello'
 import Start from '@/components/Start'
+import LoadingUI from '@/components/LoadingUI'
 import GameMap from '@/components/GameMap'
 import Question from '@/components/Question'
 import Summary from '@/components/Summary'
@@ -18,7 +19,7 @@ export default new Router({
     {
       path: '/',
       name: 'start',
-      component: GameMap,
+      component: Start,
     },
     {
       path: '/gameMap',
