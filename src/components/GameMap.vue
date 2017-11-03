@@ -3,6 +3,7 @@
       <div>Game Map</div>
       <div>Level{{$store.state.currentLevel}}</div>
 
+
       <div class="mapscene" :style="mapX">
 
           <img draggable="false" src="static/maps/bg.jpg" height="100%" />
@@ -11,6 +12,7 @@
           :yetCompleteTip="item.yetCompleteTip" @CLICK_LEVEL="clicklevelme(item)" @PLAY_ANIME="playAnime" @PLAY_MODAL="playModal" @PLAY_YET_MODAL="playModalYet"/>
 
       </div>
+
 
 
     </div>
