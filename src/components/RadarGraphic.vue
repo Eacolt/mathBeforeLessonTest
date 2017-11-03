@@ -12,7 +12,6 @@
       </g>
       <circle v-for="(item,index) in circlelist" :key="index" :cx="item.cx" :cy="item.cy" :r="item.cr"
        fill="#18a9ff"/>
-
   </svg>
 </template>
 <script>
@@ -81,12 +80,12 @@ export default {
         text: 'e444'
       }],
       animatorPoints: [
-        [0.3, 1],
-        [0.2, 1],
-        [0.7, 1],
-        [0.8, 1],
-        [0.5, 1],
-        [0, 1]
+        [0.01, 1],
+        [0.01, 1],
+        [0.01, 1],
+        [0.01, 1],
+        [0.01, 1],
+        [0.01, 1]
       ]
 
 
@@ -168,35 +167,46 @@ export default {
     }
   },
   methods: {
-    animeStart(newPointArr) {
+    animeStart($newPointArr) {
       const self = this;
-      let pointers = {
-        pt1: 0.1,
-        pt2: 0.1,
-        pt3: 0.1,
-        pt4: 0.1,
-        pt5: 0.1,
-        pt6: 0.1
-      }
 
-      TweenMax.to(pointers, 0.9, {
-        pt1: newPointArr[0][0],
-        pt2: newPointArr[1][0],
-        pt3: newPointArr[2][0],
-        pt4: newPointArr[3][0],
-        pt5: newPointArr[4][0],
-        pt6: newPointArr[5][0],
-        onUpdate: () => {
-          self.animatorPoints[0] = [pointers.pt1,1];
-          self.animatorPoints[1] = [pointers.pt2,1];
-          self.animatorPoints[2] = [pointers.pt3,1];
-          self.animatorPoints[3] = [pointers.pt4,1];
-          self.animatorPoints[4] = [pointers.pt5,1];
-          self.animatorPoints[5]= [pointers.pt6,1];
+      let pointers = [{
+          val: $newPointArr[0][0],
+        },
+        {
+          val: $newPointArr[1][0],
+        },
+        {
+          val: $newPointArr[2][0],
+        },
+        {
+          val: $newPointArr[3][0],
+        },
+        {
+          val: $newPointArr[4][0],
+        },
+        {
+          val: $newPointArr[5][0],
+        }
+      ]
+    //  console.log(pointers)
+      let index = 0;
+      let ii = (x) => {
+        return x
+      };
+      TweenMax.staggerFrom(pointers, 0.5, {
+        val: 0.01,
+        onUpdate: function() {
+          self.animatorPoints[0] = [pointers[0].val, 1];
+          self.animatorPoints[1] = [pointers[1].val, 1];
+          self.animatorPoints[2] = [pointers[2].val, 1];
+          self.animatorPoints[3] = [pointers[3].val, 1];
+          self.animatorPoints[4] = [pointers[4].val, 1];
+          self.animatorPoints[5] = [pointers[5].val, 1];
           self.innerGetgraphics = self.animatorPoints
         },
         ease: Linear.easeIn
-      })
+      }, 0.15)
     },
 
   },

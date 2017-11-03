@@ -1,6 +1,5 @@
 <template>
-  <div class="percentbar" :style="getpercentbar" >
-
+  <div class="percentbar" :style="percentbarSetting" >
     <div class="innerbar" :style="getInnerpercentbar"></div>
       <div class="percentbar_mask" :style="getmask">
         <div class="gap_w"></div>
@@ -11,6 +10,10 @@
   </div>
 </template>
 <script>
+import {
+  TweenMax,
+  TimelineLite
+} from "gsap";
 export default {
   name: 'hello',
   props:{
@@ -44,7 +47,21 @@ export default {
       default:100
     }
   },
+  data () {
+    return {
+      rankscore:this.score,
+      percentWIDTH:0.1
+    }
+  },
   computed:{
+    setPercentWidth:{
+      get(){
+        return this.percentWIDTH+"rem"
+      },
+      set(value){
+        this.percentWIDTH = value+"rem";
+      }
+    },
     getInnerpercentbar:function(){
       const self = this;
       let pers = (this.currentNum/this.totalNum)*this.width*0.965;
@@ -76,21 +93,35 @@ export default {
         borderBottomRightRadius: this.height/2+'rem'
       };
     },
-    getpercentbar:function(){
-      return {
-        width:this.width+'rem',
-        height:this.height+'rem',
-        borderTopLeftRadius: this.height/2+'rem',
-        borderBottomLeftRadius: this.height/2+'rem',
-        borderTopRightRadius: this.height/2+'rem',
-        borderBottomRightRadius: this.height/2+'rem',
+    percentbarSetting:{
+      get(){
+        return {
+          width:this.width+'rem',
+          height:this.height+'rem',
+          borderTopLeftRadius: this.height/2+'rem',
+          borderBottomLeftRadius: this.height/2+'rem',
+          borderTopRightRadius: this.height/2+'rem',
+          borderBottomRightRadius: this.height/2+'rem',
+        }
       }
+
     }
   },
-  data () {
-    return {
-      rankscore:this.score
+
+  methods:{
+    animate(){
+      const self = this;
+      let obj = {
+        w:self.percentWIDTH
+      }
+      TweenMax.to(obj,1,{w:self.width,ease:Linear.easeIn,onUpdate:()=>{
+        self.percentWIDTH = obj.w;
+        console.log(self.wid)
+      }})
     }
+  },
+  mounted(){
+    //this.animate()
   }
 }
 </script>
