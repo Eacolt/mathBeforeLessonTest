@@ -14,7 +14,8 @@ export default {
         spaceBetween: 0,
         mousewheelControl: true,
         resistanceRatio: 0,
-      }
+      },
+      gotoBtnShow:false
     }
   },
   computed: {},
@@ -36,14 +37,14 @@ export default {
 
       function handleFileLoaded(event) {
         myresult = event.result;
-        console.log(myresult)
+
       }
       function handleFileComplete(event) {
         //加载所有资源
         queue.loadManifest(myresult);
         queue.on("complete", (event) => {
           document.querySelector("#loadingDiv").style.display = "none";
-          self.gameStart()
+          self.gameStart.call(self);
 
         });
       }
@@ -60,6 +61,7 @@ export default {
     },
     gameStart() {
       //得到swiper对象
+      const self = this;
       let gotoBtn = this.$refs.gotoBtn;
       let swiper = this.$refs.mySwiper.swiper,
         swiperNode = (name) => this.$refs.mySwiper.$el.getElementsByClassName(name)[0],
@@ -118,18 +120,25 @@ export default {
         }
       }));
       tl.add(TweenMax.to(swiperArr[5], 0.8, {
-        opacity: 1,
-        onStart:function(){
-          createjs.Sound.play("cartoon_sd2_mp3");
-        }
+        opacity: 1
+
       }), "+=1.5");
       tl.add(TweenMax.to(swiperArr[6], 0.8, {
         opacity: 1,
+        onStart:function(){
+          let dd = createjs.Sound.play("cartoon_sd2_mp3");
+          dd.on("complete",()=>{
+            self.gotoBtnShow = true;
+
+            swiper.enableMousewheelControl();
+            swiper.enableTouchControl();
+          })
+        },
         onComplete: () => {
 
-          swiper.enableMousewheelControl();
-          swiper.enableTouchControl();
-          swiperNode("btnstart").style.visibility = 'visible';
+          // swiper.enableMousewheelControl();
+          // swiper.enableTouchControl();
+
         }
       }));
       tl.pause()

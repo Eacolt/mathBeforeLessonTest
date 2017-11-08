@@ -39,7 +39,11 @@ body {
     -webkit-touch-callout: none;
     -webkit-touch-action-delay: none;
     -webkit-user-select: none;
+    user-select: none;
     -webkit-text-size-adjust: none;
+    -ms-text-size-adjust:none;
+    -o-text-size-adjust:none;
+
 }
 
 #app {
@@ -54,6 +58,7 @@ body {
     position: absolute;
     user-select: none;
     cursor: default;
+
 }
 
 #logo {

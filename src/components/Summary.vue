@@ -11,7 +11,8 @@
                       <div class='username'>{{username}}</div>
                       <div class='score'>{{score}}分</div>
                    </div>
-                   <Arrows :posx="0"/>
+                   <Arrows :posx="-2.7"/>
+                   <div class="textinfo1">向下查看更多课程</div>
              </swiper-slide>
              <swiper-slide class="scene2">
                   <img draggable="false" style="position:absolute;left:0;top:0;width:100%;height:auto;" src="static/summary_bg2.jpg"/>
@@ -25,6 +26,7 @@
                          点击右上角，进行分享，邀请小伙伴一起参加测评吧~
                    </div>
                      <RadarGraphic  ref="RadarGraphic"  :point_Array="point_arry"/>
+                        <div class="textinfo2">向下查看更多课程信息</div>
              </swiper-slide>
              <swiper-slide class="scene3">
                   <img draggable="false" style="position:absolute;left:0;top:0;width:100%;height:auto;" src="static/summary_bg3.jpg"/>
@@ -88,6 +90,32 @@
   $classSchedule_r_w:$clsRight_1_w+$clsRight_2_w+$clsRight_3_w;
   $classSchedule_l_h:$classSchedule_h/7;
   $classSchedule_r_h:$classSchedule_h/12;
+  .textinfo1{
+    position: absolute;
+    width:5rem;
+    height:0.45rem;
+
+    background-size: contain;
+    top:10rem;
+    left:7.68rem;
+    color:#c67e49;
+    font-size: 0.3rem;
+    font-weight: bold;
+    font-family: SimHei Microsoft YaHei;
+  }
+  .textinfo2{
+    position: absolute;
+    width:5rem;
+    height:0.45rem;
+
+    background-size: contain;
+    top:9rem;
+    left:7.1rem;
+    color:#c67e49;
+    font-size: 0.3rem;
+    font-weight: bold;
+    font-family: SimHei Microsoft YaHei;
+  }
   .areabar {
     position: absolute;
     top: 4.45rem;
@@ -320,10 +348,10 @@
 }
 .button2{
   position: absolute;
-  width:2.8rem;
-  height:1.04rem;
+  width:4.4rem;
+  height:1rem;
   background:url(../assets/testbtn.png) no-repeat;
-  background-size: 100% 100%;
+  background-size: contain;
   margin:0 auto;
   left:0;
   right:0;

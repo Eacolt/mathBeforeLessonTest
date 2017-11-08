@@ -14,7 +14,7 @@
         <img draggable="false"  class="cartoon6" src="static/begin/cartoon6.png" />
         <img draggable="false" class="cartoon7"  src="static/begin/cartoon7.png" />
       </swiper-slide>
-      <img ref="gotoBtn" @click="gotoGame()" draggable="false" class="btnstart" src="static/begin/startbtn.png" />
+      <img ref="gotoBtn" v-show="gotoBtnShow" @click="gotoGame()" draggable="false" class="btnstart" src="static/begin/startbtn.png" />
     </swiper>
 
     <div id="loadingDiv">
@@ -42,21 +42,15 @@
     bottom: 0.8rem;
     width:3.31rem;
     height:1.60rem;
-    visibility: hidden;
 
   }
-
-
   .swiper-box {
     position: absolute;
     left:0;
     top:0;
     width: 100%;
     height: 100%;
-
-
   }
-
   .swiper-item {
     position: relative;
     height: 100%;
