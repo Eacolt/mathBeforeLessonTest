@@ -22,32 +22,28 @@ export default {
     const self = this;
     Utils.debug = false;
     createjs.Sound.alternateExtensions = ["mp3"];
-    createjs.Sound.on("fileload", soundloadHandler, this);
-    createjs.Sound.registerSound("static/audio/bgmusic.mp3", "bg_sound");
-      createjs.Sound.registerSound("static/audio/success.mp3", "success_mp3");
-        createjs.Sound.registerSound("static/audio/button.mp3", "button_mp3");
-    function soundloadHandler(event) {
-      do_queueload();
-    }
-    function do_queueload(){
+    do_queueload();
+
+    function do_queueload() {
       var queueManifest = new createjs.LoadQueue(false);
       var queue = new createjs.LoadQueue(false);
+      queue.installPlugin(createjs.Sound)
       //加载资源配置文件manifest;
       queueManifest.on("fileload", handleFileLoaded);
       queueManifest.on("complete", handleFileComplete);
       queueManifest.loadManifest("static/assetsManifest.json");
       var myresult = null;
+
       function handleFileLoaded(event) {
         myresult = event.result;
+        console.log(myresult)
       }
       function handleFileComplete(event) {
         //加载所有资源
         queue.loadManifest(myresult);
-
         queue.on("complete", (event) => {
           document.querySelector("#loadingDiv").style.display = "none";
-
-            self.gameStart()
+          self.gameStart()
 
         });
       }
@@ -56,12 +52,15 @@ export default {
 
   },
   methods: {
-    gotoGame(){
+    gotoGame() {
       this.$router.push('/gamemap');
-      createjs.Sound.play("bg_sound",{loop:-1})
+      createjs.Sound.play("bg_sound", {
+        loop: -1
+      })
     },
     gameStart() {
       //得到swiper对象
+      let gotoBtn = this.$refs.gotoBtn;
       let swiper = this.$refs.mySwiper.swiper,
         swiperNode = (name) => this.$refs.mySwiper.$el.getElementsByClassName(name)[0],
         swiperArr = [swiperNode("cartoon1"), swiperNode("cartoon2"), swiperNode("cartoon3"), swiperNode("cartoon4"), swiperNode("cartoon5"), swiperNode("cartoon6"), swiperNode("cartoon7")]
@@ -71,6 +70,12 @@ export default {
       swiperArr.forEach((item) => {
         item.style.opacity = 0;
       });
+
+      function windowOnResize() {
+        swiper.update(true);
+        swiper.onResize()
+
+      }
       let wrapspeed = 700;
       //定义动画@_swiperArr卡通动画对象,@index动画的索引位置
       let swiperAnime = ($index, $complete, $time = 300, $delay = 200) => {
@@ -84,8 +89,12 @@ export default {
       };
       let tl = new TimelineLite()
       tl.add(TweenMax.to(swiperArr[0], 0.8, {
-        opacity: 1
-      }));
+        opacity: 1,
+        onStart:function(){
+    //      createjs.Sound.play()
+          createjs.Sound.play("cartoon_sd1_mp3");
+        }
+       }));
       tl.add(TweenMax.to(swiperArr[1], 0.8, {
         opacity: 1,
         onComplete: () => {
@@ -109,11 +118,15 @@ export default {
         }
       }));
       tl.add(TweenMax.to(swiperArr[5], 0.8, {
-        opacity: 1
+        opacity: 1,
+        onStart:function(){
+          createjs.Sound.play("cartoon_sd2_mp3");
+        }
       }), "+=1.5");
       tl.add(TweenMax.to(swiperArr[6], 0.8, {
         opacity: 1,
         onComplete: () => {
+
           swiper.enableMousewheelControl();
           swiper.enableTouchControl();
           swiperNode("btnstart").style.visibility = 'visible';
@@ -137,6 +150,18 @@ export default {
       swiperNode("btnstart").addEventListener('mouseleave', () => {
         tl_btn.resume();
       })
+      window.addEventListener("resize", windowOnResize);
+      window.addEventListener("orientationchange", windowOnResize);
+
+
+      gotoBtn.addEventListener("click", () => {
+        window.removeEventListener("resize", windowOnResize);
+        window.removeEventListener("orientationchange", windowOnResize);
+
+      })
+
+
+
     }
   }
 

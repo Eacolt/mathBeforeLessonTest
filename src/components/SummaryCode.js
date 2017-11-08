@@ -277,5 +277,13 @@ export default {
       return cvalue + pvalue;
     })
     self.score = resultscore + '';
+    window.addEventListener("resize",()=>{
+
+      self.mySwiper.onResize()
+    })
+    window.addEventListener("orientationchange",()=>{
+
+      self.mySwiper.onResize()
+    })
   }
 }

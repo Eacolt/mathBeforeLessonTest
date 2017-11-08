@@ -43,15 +43,16 @@ class Preload{
         }else{
             self.fontSize = parseInt(document.documentElement.style.fontSize);
         }
-        // let allfontsize = document.documentElement.style.fontSize;
-        //  let transMin =  self.fontSize*-0.3+"rem";
-        //  let transMax =  self.fontSize*0.3+"rem";
-        //  let myrule = "0% {-webkit-transform:translate("+transMin+")}";
-        //  let myrule2 = "100% {-webkit-transform:translate("+transMax+")}";
-        //  kfy.deleteRule('0%');
-        //  kfy.deleteRule('100%');
-        //  kfy.appendRule(myrule);
-        //  kfy.appendRule(myrule2);
+
+        let allfontsize = document.documentElement.style.fontSize;
+         let transMin =  self.fontSize*-0.3+"rem";
+         let transMax =  self.fontSize*0.3+"rem";
+         let myrule = "0% {-webkit-transform:translate("+transMin+")}";
+         let myrule2 = "100% {-webkit-transform:translate("+transMax+")}";
+         kfy.deleteRule('0%');
+         kfy.deleteRule('100%');
+         kfy.appendRule(myrule);
+         kfy.appendRule(myrule2);
 
         };
         window.addEventListener(resizeEvt, recalc, false);

@@ -1,5 +1,24 @@
 [
-
+  {
+    "id":"bg_sound",
+    "src":"static/audio/bgmusic.mp3"
+  },
+  {
+    "id":"success_mp3",
+    "src":"static/audio/success.mp3"
+  },
+  {
+    "id":"button_mp3",
+    "src":"static/audio/button.mp3"
+  },
+  {
+    "id":"cartoon_sd1_mp3",
+    "src":"static/audio/cartoon_sd1.mp3"
+  },
+  {
+    "id":"cartoon_sd2_mp3",
+    "src":"static/audio/cartoon_sd2.mp3"
+  },
   {
     "id":"passlight_png",
     "src":"static/img/passlight.png"
@@ -20,7 +39,6 @@
     "id":"summary_bg3_jpg",
     "src":"static/summary_bg3.jpg"
   },
-
   {
     "id":"cartoon_bg",
     "src":"static/begin/cartoon.png"

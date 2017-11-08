@@ -14,7 +14,7 @@
         <img draggable="false"  class="cartoon6" src="static/begin/cartoon6.png" />
         <img draggable="false" class="cartoon7"  src="static/begin/cartoon7.png" />
       </swiper-slide>
-      <img @click="gotoGame()" draggable="false" class="btnstart" src="static/begin/startbtn.png" />
+      <img ref="gotoBtn" @click="gotoGame()" draggable="false" class="btnstart" src="static/begin/startbtn.png" />
     </swiper>
 
     <div id="loadingDiv">
@@ -30,7 +30,8 @@
     width: 100%;
   }
   .container {
-    height: 100%
+    height: 100%;
+    width: 100%;
   }
   .btnstart{
     cursor: pointer;
@@ -58,7 +59,7 @@
 
   .swiper-item {
     position: relative;
-    height: 19.2rem;
+    height: 100%;
     text-align: center;
   }
   img{
