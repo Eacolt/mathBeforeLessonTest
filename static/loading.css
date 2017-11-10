@@ -54,10 +54,10 @@
     background-image: -o-linear-gradient(left, #ffcf93, #f98d9d,#a392fb);
     background-image: -ms-linear-gradient(left, #ffcf93, #f98d9d,#a392fb);
     background-image: linear-gradient(left, #ffcf93, #f98d9d,#a392fb);
-    /*animation: loader 3s infinite linear ;
+    animation: loader 3s infinite linear ;
     -webkit-animation: loader 3s infinite linear ;
     -o-animation: loader 3s infinite linear ;
-    -moz-animation: loader 3s infinite linear ;*/
+    -moz-animation: loader 3s infinite linear ;
 }
 .loadingText{
     display:block;

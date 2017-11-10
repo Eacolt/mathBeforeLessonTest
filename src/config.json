@@ -4,7 +4,7 @@
   "answerTime": 120,
   "scoreEveryQuestion": 10,
   "nextLevelDescribe": "恭喜你获得一条线索!",
-  "lastLevelDescribe": "恭喜完成所有关卡",
+  "lastLevelDescribe": "恭喜你获得魔法石!",
   "levels": [
     {
       "name": "运算能力",
@@ -43,7 +43,7 @@
           ]
         },
         {
-          "describe": "方阵中每一行每一列都有1,2,3,4这四个数字，请问空缺位置的所有数字的和是多少？",
+          "describe": "请问图中五角星位置的数字是多少？",
           "option": 3,
           "answerIndex": [
             1

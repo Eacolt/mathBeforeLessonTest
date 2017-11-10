@@ -107,7 +107,7 @@ export default {
         break;
         case "时间管理能力":
             self.avatarLogo = "static/img/avatar5.png";
-            self.passLevelBg = "static/img/passbg5.png";
+            self.passLevelBg = "static/img/passbg6.png";
         break;
       default:
         break;

@@ -183,7 +183,10 @@ export default {
     Buttons
   },
   methods: {
-    percentAnimeTo($terminal, $target, $index, $thisObj, $speed = 12, $vector = 1) {
+    gotoTestURL(){
+      window.location.href = "http://touch.xueersi.com/xueqian-shuxue-4-0-0-0-0-43-0-0-0-4-0-1-1/#";
+    },
+    percentAnimeTo($terminal, $target, $index, $thisObj, $speed = 12, $vector = 1.5) {
       let starts = 0;
       let animeFrameCount = () => {
         let count = setTimeout(() => {

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @touchmove="touchTest()">
       <div>Game Map</div>
       <div>Level{{$store.state.currentLevel}}</div>
 

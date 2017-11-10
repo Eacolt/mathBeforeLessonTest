@@ -12,7 +12,7 @@
                       <div class='score'>{{score}}分</div>
                    </div>
                    <Arrows :posx="-2.7"/>
-                   <div class="textinfo1">向下查看更多课程</div>
+                   <div class="textinfo1">向下查看更多信息</div>
              </swiper-slide>
              <swiper-slide class="scene2">
                   <img draggable="false" style="position:absolute;left:0;top:0;width:100%;height:auto;" src="static/summary_bg2.jpg"/>
@@ -60,7 +60,9 @@
                  </div>
                </div>
 
-              <div class='button2'></div>
+              <div class='button2' @click="gotoTestURL()">
+                <img src="static/img/testbtn.png" width="100%" height="auto"/>
+              </div>
              </swiper-slide>
          </swiper>
 
@@ -334,24 +336,11 @@
    }
 
  }
-.button1{
-  position: absolute;
-  width:2.8rem;
-  height:1.04rem;
-  background:url(../assets/sharebtn.png) no-repeat;
-  background-size: 100% 100%;
-  margin:0 auto;
-  left:0;
-  right:0;
-  top:7.8rem;
-  cursor: pointer;
-}
+
 .button2{
   position: absolute;
   width:4.4rem;
   height:1rem;
-  background:url(../assets/testbtn.png) no-repeat;
-  background-size: contain;
   margin:0 auto;
   left:0;
   right:0;

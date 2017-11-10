@@ -14,8 +14,10 @@ export default {
         spaceBetween: 0,
         mousewheelControl: true,
         resistanceRatio: 0,
+        followFinger:false
       },
-      gotoBtnShow:false
+      gotoBtnShow: false,
+      soundWords: ""
     }
   },
   computed: {},
@@ -23,34 +25,39 @@ export default {
     const self = this;
     Utils.debug = false;
     createjs.Sound.alternateExtensions = ["mp3"];
-    do_queueload();
+    var queueManifest = new createjs.LoadQueue(false);
+    var queue = new createjs.LoadQueue(false);
+    let soundCount = 0;
+    var myresult = null;
 
-    function do_queueload() {
-      var queueManifest = new createjs.LoadQueue(false);
-      var queue = new createjs.LoadQueue(false);
-      queue.installPlugin(createjs.Sound)
-      //加载资源配置文件manifest;
-      queueManifest.on("fileload", handleFileLoaded);
-      queueManifest.on("complete", handleFileComplete);
-      queueManifest.loadManifest("static/assetsManifest.json");
-      var myresult = null;
+    queue.installPlugin(createjs.Sound)
+    createjs.Sound.registerSound("static/audio/bgmusic.mp3", "bg_sound");
+    createjs.Sound.registerSound("static/audio/success.mp3", "success_mp3");
+    createjs.Sound.registerSound("static/audio/button.mp3", "button_mp3");
+    createjs.Sound.registerSound("static/audio/cartoon_sd1.mp3", "cartoon_sd1_mp3");
+    createjs.Sound.registerSound("static/audio/cartoon_sd2.mp3", "cartoon_sd2_mp3");
 
-      function handleFileLoaded(event) {
-        myresult = event.result;
-
-      }
-      function handleFileComplete(event) {
-        //加载所有资源
-        queue.loadManifest(myresult);
-        queue.on("complete", (event) => {
-          document.querySelector("#loadingDiv").style.display = "none";
-          self.gameStart.call(self);
-
-        });
-      }
-
+    //加载资源配置文件manifest;
+    queueManifest.on("fileload", handleFileLoaded);
+    queueManifest.on("fileerror", handleFileError);
+    function handleFileError(evt) {
+      console.warn(evt);
     }
-
+    queueManifest.on("complete", handleFileComplete);
+    queueManifest.loadManifest("static/assetsManifest.json");
+    function handleFileLoaded(event) {
+      myresult = event.result;
+    }
+    function handleFileComplete(event) {
+      //加载所有资源
+      queue.loadManifest(myresult);
+      queue.on("complete", (event) => {
+        setTimeout(() => {
+          document.querySelector("#loadingDiv").style.display = "none";
+          self.gameStart();
+        }, 500)
+      });
+    }
   },
   methods: {
     gotoGame() {
@@ -68,15 +75,13 @@ export default {
         swiperArr = [swiperNode("cartoon1"), swiperNode("cartoon2"), swiperNode("cartoon3"), swiperNode("cartoon4"), swiperNode("cartoon5"), swiperNode("cartoon6"), swiperNode("cartoon7")]
       swiper.disableMousewheelControl();
       swiper.disableTouchControl();
-
       swiperArr.forEach((item) => {
         item.style.opacity = 0;
       });
-
       function windowOnResize() {
         swiper.update(true);
         swiper.onResize()
-
+    //  console.log("swiper更改")
       }
       let wrapspeed = 700;
       //定义动画@_swiperArr卡通动画对象,@index动画的索引位置
@@ -92,11 +97,11 @@ export default {
       let tl = new TimelineLite()
       tl.add(TweenMax.to(swiperArr[0], 0.8, {
         opacity: 1,
-        onStart:function(){
-    //      createjs.Sound.play()
+        onStart: function() {
+          //      createjs.Sound.play()
           createjs.Sound.play("cartoon_sd1_mp3");
         }
-       }));
+      }));
       tl.add(TweenMax.to(swiperArr[1], 0.8, {
         opacity: 1,
         onComplete: () => {
@@ -125,20 +130,13 @@ export default {
       }), "+=1.5");
       tl.add(TweenMax.to(swiperArr[6], 0.8, {
         opacity: 1,
-        onStart:function(){
-          let dd = createjs.Sound.play("cartoon_sd2_mp3");
-          dd.on("complete",()=>{
-            self.gotoBtnShow = true;
-
+        onStart: function() {
+          self.gotoBtnShow = true;
+          self.soundWords = createjs.Sound.play("cartoon_sd2_mp3");
+          self.soundWords.on("complete", () => {
             swiper.enableMousewheelControl();
             swiper.enableTouchControl();
           })
-        },
-        onComplete: () => {
-
-          // swiper.enableMousewheelControl();
-          // swiper.enableTouchControl();
-
         }
       }));
       tl.pause()
@@ -154,22 +152,17 @@ export default {
       }));
       swiperNode("btnstart").addEventListener('mouseenter', () => {
         tl_btn.pause();
-
       })
       swiperNode("btnstart").addEventListener('mouseleave', () => {
         tl_btn.resume();
       })
       window.addEventListener("resize", windowOnResize);
       window.addEventListener("orientationchange", windowOnResize);
-
-
       gotoBtn.addEventListener("click", () => {
+        self.soundWords.stop()
         window.removeEventListener("resize", windowOnResize);
         window.removeEventListener("orientationchange", windowOnResize);
-
       })
-
-
 
     }
   }

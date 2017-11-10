@@ -195,6 +195,9 @@ export  default {
       LevelMonster
     },
     methods:{
+      touchTest(){
+      //  event.preventDefault()
+      },
       clicklevelme(item){
 
         if(!item.stateOpen)return;//灰色的不能点
